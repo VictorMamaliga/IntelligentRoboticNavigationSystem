@@ -1,0 +1,675 @@
+RC51 COMPILER V3.03.1D,  CODE                     07/28/23  16:02:24  PAGE  1
+
+QCW(0x00002F32)
+
+WIN32 RC51 COMPILER V3.03.1D, COMPILATION OF MODULE CODE      
+OBJECT MODULE PLACED IN c:\users\44791\desktop\uni\2\intelligent robotic navigat
+            -ion system with obstacle avoidance and line following\code.obj
+COMPILER INVOKED BY: RC51.EXE C:\USERS\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC N
+            -AVIGATION SYSTEM WITH OBSTACLE AVOIDANCE AND LINE FOLLOWING\CODE.C 
+            -OBJECT(C:\USERS\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC NAVIGATION 
+            -SYSTEM WITH OBSTACLE AVOIDANCE AND LINE FOLLOWING\CODE.OBJ) PIN(C:\
+            -USERS\44791\DESKTOP\UNI\2\MICROPROCESSORS\RIDE\INC) NOAM PR(C:\USER
+            -S\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC NAVIGATION SYSTEM WITH OB
+            -STACLE AVOIDANCE AND LINE FOLLOWING\CODE.LST) CD SB OE(1) SM FP(NOF
+            -LOAT) PW(80) NOIS UNSIGNEDCHAR 
+
+stmt level    source
+   1           
+   2          
+   3          #include<reg51.h> // Including header file for 8051 microcontrolle
+            -r
+   4          #include <stdio.h> // Standard input-output library for C
+   5          #include <math.h> // Math library for C
+   6          
+   7          #define sound_velocity 34300  	/* Defining the velocity of sound i
+            -n cm/s */
+   8          #define period_in_us pow(10,-6) // Defining the period for microse
+            -cond time delay
+   9          #define Clock_period 1.085*period_in_us /* Defining the period of 
+            -the clock cycle of 8051 microcontroller */
+  10          
+  11          sbit rightIR = P3^3; // Defining the right IR sensor pin
+  12          sbit leftIR = P3^4; // Defining the left IR sensor pin
+  13          
+  14          // Defining the LED pins
+  15          sbit ledS = P1^4; // Sound-sensor LED
+  16          sbit ledI = P1^6; // IR sensor LED
+  17          
+  18          sbit SW = P1^5; // Defining the switch pin
+  19          
+  20          // Defining the motor control pins
+  21          sbit M1A = P2^0; // Motor 1 forward
+  22          sbit M1B = P2^1; // Motor 1 backward
+  23          sbit M2A = P2^2; // Motor 2 forward
+  24          sbit M2B = P2^3; // Motor 2 backward
+  25          sbit M3A = P1^0; // Motor 3 forward
+  26          sbit M3B = P1^1; // Motor 3 backward
+  27          sbit M4A = P1^2; // Motor 4 forward
+  28          sbit M4B = P1^3; // Motor 4 backward
+  29          
+  30          // Defining the Ultrasonic sensor pins
+  31          sbit Trigger_pin1 = P2^4; // Trigger pin for sensor 1
+  32          sbit Echo_pin1 = P2^5;    // Echo pin for sensor 1
+  33          sbit Trigger_pin2 = P2^6; // Trigger pin for sensor 2
+  34          sbit Echo_pin2 = P2^7;    // Echo pin for sensor 2
+  35          sbit Trigger_pin3 = P0^6; // Trigger pin for sensor 3
+  36          sbit Echo_pin3 = P0^7;    // Echo pin for sensor 3
+  37          
+  38          void Delay_us()
+  39          {
+  40   1      	TL0=0xF5; // Load the lower byte of the timer
+  41   1      	TH0=0xFF; // Load the higher byte of the timer
+  42   1      	TR0=1; // Start the timer
+  43   1      	while (TF0==0); // Wait until the timer overflows
+  44   1      	TR0=0; // Stop the timer
+  45   1      	TF0=0; // Clear the timer overflow flag
+  46   1      }
+  47          
+  48          void init_timer(){
+  49   1      	TMOD=0x01; /* Initialize Timer 0 in mode 1 (16-bit timer mode) */
+            -
+  50   1      	TF0=0; // Clear the timer overflow flag
+  51   1      	TR0 = 0; // Stop the timer
+  52   1      }
+  53          
+  54          void GoForward(void) // Function to drive the robot forward
+  55          {
+  56   1          M1A = 0; // Motor 1 forward control OFF
+  57   1          M1B = 1; // Motor 1 backward control ON
+  58   1          M2A = 0; // Motor 2 forward control OFF
+  59   1          M2B = 1; // Motor 2 backward control ON
+  60   1          M3A = 0; // Motor 3 forward control OFF
+  61   1          M3B = 1; // Motor 3 backward control ON
+  62   1          M4A = 0; // Motor 4 forward control OFF
+  63   1          M4B = 1; // Motor 4 backward control ON
+  64   1      }
+  65          
+  66          void GoLeft(void) // Function to turn the robot to the left
+  67          {   
+  68   1          M1A = 1; // Motor 1 forward control ON
+  69   1          M1B = 0; // Motor 1 backward control OFF
+  70   1          M2A = 1; // Motor 2 forward control ON
+  71   1          M2B = 0; // Motor 2 backward control OFF
+  72   1          M3A = 0; // Motor 3 forward control OFF
+  73   1          M3B = 1; // Motor 3 backward control ON
+  74   1          M4A = 0; // Motor 4 forward control OFF
+  75   1          M4B = 1; // Motor 4 backward control ON
+  76   1      }
+  77          
+  78          void GoRight(void) // Function to turn the robot to the right
+  79          {   
+  80   1          M1A = 0; // Motor 1 forward control OFF
+  81   1          M1B = 1; // Motor 1 backward control ON
+  82   1          M2A = 0; // Motor 2 forward control OFF
+  83   1          M2B = 1; // Motor 2 backward control ON
+  84   1          M3A = 1; // Motor 3 forward control ON
+  85   1          M3B = 0; // Motor 3 backward control OFF
+  86   1          M4A = 1; // Motor 4 forward control ON
+  87   1          M4B = 0; // Motor 4 backward control OFF
+  88   1      }
+  89          
+  90          void Stop(void) // Function to stop the robot
+  91          {   
+  92   1          M1A = 0; // Motor 1 forward control OFF
+  93   1          M1B = 0; // Motor 1 backward control OFF
+  94   1          M2A = 0; // Motor 2 forward control OFF
+  95   1          M2B = 0; // Motor 2 backward control OFF
+  96   1          M3A = 0; // Motor 3 forward control OFF
+  97   1          M3B = 0; // Motor 3 backward control OFF
+  98   1          M4A = 0; // Motor 4 forward control OFF
+  99   1          M4B = 0; // Motor 4 backward control OFF
+ 100   1      }
+ 101          
+ 102          float measureDistance1() {
+
+WARNING C215 IN LINE 102 OF code.c : 'float' found with NOFLOAT option, IEEE st
+            -d assumed
+ 103   1          float distance_measurement, value;
+ 104   1      	
+ 105   1          init_timer();			/* Initialize Timer */
+ 106   1          Trigger_pin1= 1;           	/* Pull trigger pin HIGH */
+ 107   1      	Delay_us();               	/* Provide 10uS Delay*/
+ 108   1      	Trigger_pin1 = 0; 			/* Send trigger pulse of 10us */
+ 109   1          
+ 110   1          while(!Echo_pin1);           		/* Waiting for Echo */
+ 111   1          TR0 = 1;                    		/* Timer Starts */
+ 112   1          while(Echo_pin1 && !TF0);    		/* Waiting for Echo goes LOW */
+            -
+ 113   1          TR0 = 0;                    		/* Stop the timer */
+ 114   1      	  
+ 115   1          /* calculate distance using timer */
+ 116   1          value = Clock_period * sound_velocity; 
+ 117   1          distance_measurement = (TL0|(TH0<<8));	/* Read timer register 
+            -for time count */
+ 118   1          distance_measurement = (distance_measurement*value)/2.0;  /* C
+            -alculate distance(in cm) */
+ 119   1          
+ 120   1          return distance_measurement; // Return the calculated distance
+            -
+ 121   1      }
+ 122          
+ 123          /* Repeat the measureDistance1() function for the other two sensor
+            -s */
+ 124          float measureDistance2() {
+ 125   1          // Similar to measureDistance1() but with Trigger_pin2 and Ech
+            -o_pin2
+ 126   1      }
+
+WARNING C096 IN LINE 126 OF code.c : Function 'measureDistance2' should return 
+            -a value
+ 127          
+ 128          float measureDistance3() {
+ 129   1          // Similar to measureDistance1() but with Trigger_pin3 and Ech
+            -o_pin3
+ 130   1      }
+
+WARNING C096 IN LINE 130 OF code.c : Function 'measureDistance3' should return 
+            -a value
+ 131          
+ 132          void SoundControl(void)
+ 133          {
+ 134   1      for(;;){ // Infinite loop
+ 135   2      float leftDistance,centerDistance,rightDistance ;	 
+ 136   2      
+ 137   2      		  leftDistance = measureDistance1(); // Measure left distance
+ 138   2              centerDistance = measureDistance2(); // Measure center dis
+            -tance
+ 139   2                      rightDistance = measureDistance3();    /* Measure 
+            -right distance */
+ 140   2              
+ 141   2              if (centerDistance > 40 && leftDistance > 20 && rightDista
+            -nce > 20) {
+ 142   3           		GoForward(); // If all distances are clear, go forward
+ 143   3         		 } else if (leftDistance > rightDistance && leftDistance > 20
+            -  ) {
+ 144   3          		   
+ 145   3          		     GoLeft(); // If left is clearer than right, go left
+ 146   3           		    
+ 147   3          		  }   else if (rightDistance>leftDistance  ) {
+ 148   3         	    
+ 149   3         	     GoRight(); // If right is clearer than left, go right
+ 150   3         	    
+ 151   3         	   	} else{
+ 152   3         	   	 // Both left and right have obstacles, so turn around
+ 153   3         	   	GoRight();Delay_us();Delay_us();Delay_us(); // Additional 
+            -delay to make a complete turn around
+ 154   3         	   	}
+ 155   2         	   	}
+ 156   1      }
+ 157          
+ 158          void main() {	
+ 159   1      	 	 
+ 160   1          ledS = 0; // Initialize Ultrasound  LED as OFF
+ 161   1          ledI = 0;  // Initialize IR LED as OFF
+ 162   1          SW = 1; // Initialize Switch as ON
+ 163   1           
+ 164   1          while(1) {   // Main infinite loop
+ 165   2          
+ 166   2          if(SW == 1){
+ 167   3          SoundControl(); // Call SoundControl function if switch is ON
+
+            - 168   3          ledS = 1; // Turn on Ultrasound  LED
+ 169   3              	  }
+ 170   2               
+ 171   2               else
+ 172   2               {
+ 173   3      	  ledI =1; // Turn on IR LED
+ 174   3                if(rightIR && leftIR) // If both IR sensors are activate
+            -d
+ 175   3                {
+ 176   4                GoForward(); // Go forward
+ 177   4                }else if (!rightIR && leftIR) // If only left IR sensor 
+            -is activated
+ 178   3                {
+ 179   4                GoLeft(); // Turn left
+ 180   4                }else if (rightIR  && !leftIR) { // If only right IR sen
+            -sor is activated
+ 181   4                GoRight(); // Turn right
+ 182   4                }else{ // If none of the IR sensors are activated
+ 183   4                Stop(); // Stop
+ 184   4                }
+ 185   3      
+ 186   3      		
+ 187   3              }
+ 188   2              }Delay_us(); // Delay before next iteration of the loop
+ 189   1          }
+ 190          
+ 191          
+ 192          
+RC51 COMPILER V3.03.1D,  CODE                     07/28/23  16:02:24  PAGE  2
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+            ; FUNCTION Delay_us (BEGIN)
+                                           ; SOURCE LINE # 40 
+0000 758AF5         MOV    TL0,#0F5H
+                                           ; SOURCE LINE # 41 
+0003 758CFF         MOV    TH0,#0FFH
+                                           ; SOURCE LINE # 42 
+0006 D28C           SETB   TR0
+0008         ?WHILE1:
+                                           ; SOURCE LINE # 43 
+0008 308DFD         JNB    TF0,?WHILE1
+                                           ; SOURCE LINE # 44 
+000B C28C           CLR    TR0
+                                           ; SOURCE LINE # 45 
+000D C28D           CLR    TF0
+000F 22             RET    
+
+            ; FUNCTION Delay_us (END)
+
+            ; FUNCTION init_timer (BEGIN)
+                                           ; SOURCE LINE # 49 
+0000 758901         MOV    TMOD,#001H
+                                           ; SOURCE LINE # 50 
+0003 C28D           CLR    TF0
+                                           ; SOURCE LINE # 51 
+0005 C28C           CLR    TR0
+0007 22             RET    
+
+            ; FUNCTION init_timer (END)
+
+            ; FUNCTION GoForward (BEGIN)
+                                           ; SOURCE LINE # 56 
+0000 C2A0           CLR    M1A
+                                           ; SOURCE LINE # 57 
+0002 D2A1           SETB   M1B
+                                           ; SOURCE LINE # 58 
+0004 C2A2           CLR    M2A
+                                           ; SOURCE LINE # 59 
+0006 D2A3           SETB   M2B
+                                           ; SOURCE LINE # 60 
+0008 C290           CLR    M3A
+                                           ; SOURCE LINE # 61 
+000A D291           SETB   M3B
+                                           ; SOURCE LINE # 62 
+000C C292           CLR    M4A
+                                           ; SOURCE LINE # 63 
+000E D293           SETB   M4B
+0010 22             RET    
+
+            ; FUNCTION GoForward (END)
+
+            ; FUNCTION GoLeft (BEGIN)
+                                           ; SOURCE LINE # 68 
+0000 D2A0           SETB   M1A
+                                           ; SOURCE LINE # 69 
+0002 C2A1           CLR    M1B
+                                           ; SOURCE LINE # 70 
+0004 D2A2           SETB   M2A
+                                           ; SOURCE LINE # 71 
+0006 C2A3           CLR    M2B
+                                           ; SOURCE LINE # 72 
+0008 C290           CLR    M3A
+                                           ; SOURCE LINE # 73 
+000A D291           SETB   M3B
+                                           ; SOURCE LINE # 74 
+000C C292           CLR    M4A
+                                           ; SOURCE LINE # 75 
+000E D293           SETB   M4B
+0010 22             RET    
+
+            ; FUNCTION GoLeft (END)
+
+            ; FUNCTION GoRight (BEGIN)
+                                           ; SOURCE LINE # 80 
+0000 C2A0           CLR    M1A
+                                           ; SOURCE LINE # 81 
+0002 D2A1           SETB   M1B
+                                           ; SOURCE LINE # 82 
+0004 C2A2           CLR    M2A
+                                           ; SOURCE LINE # 83 
+0006 D2A3           SETB   M2B
+                                           ; SOURCE LINE # 84 
+0008 D290           SETB   M3A
+                                           ; SOURCE LINE # 85 
+000A C291           CLR    M3B
+                                           ; SOURCE LINE # 86 
+000C D292           SETB   M4A
+                                           ; SOURCE LINE # 87 
+000E C293           CLR    M4B
+0010 22             RET    
+
+            ; FUNCTION GoRight (END)
+
+            ; FUNCTION Stop (BEGIN)
+                                           ; SOURCE LINE # 92 
+0000 C2A0           CLR    M1A
+                                           ; SOURCE LINE # 93 
+0002 C2A1           CLR    M1B
+                                           ; SOURCE LINE # 94 
+0004 C2A2           CLR    M2A
+                                           ; SOURCE LINE # 95 
+0006 C2A3           CLR    M2B
+                                           ; SOURCE LINE # 96 
+0008 C290           CLR    M3A
+                                           ; SOURCE LINE # 97 
+000A C291           CLR    M3B
+                                           ; SOURCE LINE # 98 
+000C C292           CLR    M4A
+                                           ; SOURCE LINE # 99 
+000E C293           CLR    M4B
+0010 22             RET    
+
+            ; FUNCTION Stop (END)
+
+            ; FUNCTION measureDistance1 (BEGIN)
+                                           ; SOURCE LINE # 105 
+0000 120000  R      LCALL  init_timer
+                                           ; SOURCE LINE # 106 
+0003 D2A4           SETB   Trigger_pin1
+                                           ; SOURCE LINE # 107 
+0005 120000  R      LCALL  Delay_us
+                                           ; SOURCE LINE # 108 
+0008 C2A4           CLR    Trigger_pin1
+000A         ?WHILE4:
+                                           ; SOURCE LINE # 110 
+000A 30A5FD         JNB    Echo_pin1,?WHILE4
+                                           ; SOURCE LINE # 111 
+000D D28C           SETB   TR0
+000F         ?WHILE5:
+                                           ; SOURCE LINE # 112 
+000F 30A503         JNB    Echo_pin1,?NXT5
+0012 308DFA         JNB    TF0,?WHILE5
+0015         ?NXT5:
+                                           ; SOURCE LINE # 113 
+0015 C28C           CLR    TR0
+                                           ; SOURCE LINE # 116 
+0017 E4             CLR    A
+0018 C0E0           PUSH   ACC
+001A C0E0           PUSH   ACC
+001C 74C0           MOV    A,#0C0H
+001E C0E0           PUSH   ACC
+0020 C0E0           PUSH   ACC
+0022 E4             CLR    A
+0023 FC             MOV    R4,A
+0024 FD             MOV    R5,A
+0025 7420           MOV    A,#020H
+0027 FE             MOV    R6,A
+0028 7441           MOV    A,#041H
+002A FF             MOV    R7,A
+002B 120000  R      LCALL  ?pow
+002E 74FC           MOV    A,#0FCH
+0030 2581           ADD    A,SP
+0032 F581           MOV    SP,A
+0034 C004           PUSH   AR4
+0036 C005           PUSH   AR5
+0038 C006           PUSH   AR6
+003A C007           PUSH   AR7
+003C 7C48           MOV    R4,#048H
+003E 7DE1           MOV    R5,#0E1H
+0040 7E8A           MOV    R6,#08AH
+0042 7F3F           MOV    R7,#03FH
+0044 120000  R      LCALL  ?MULTIEEE
+0047 C004           PUSH   AR4
+0049 C005           PUSH   AR5
+004B C006           PUSH   AR6
+004D C007           PUSH   AR7
+004F E4             CLR    A
+0050 FC             MOV    R4,A
+0051 7DFC           MOV    R5,#0FCH
+0053 7E05           MOV    R6,#005H
+0055 7F47           MOV    R7,#047H
+0057 120000  R      LCALL  ?MULTIEEE
+005A 8C00    R      MOV    value,R4
+005C 8D00    R      MOV    value+01H,R5
+005E 8E00    R      MOV    value+02H,R6
+0060 8F00    R      MOV    value+03H,R7
+                                           ; SOURCE LINE # 117 
+0062 E58C           MOV    A,TH0
+0064 FA             MOV    R2,A
+0065 E58A           MOV    A,TL0
+0067 FD             MOV    R5,A
+0068 C002           PUSH   AR2
+006A C005           PUSH   AR5
+006C E4             CLR    A
+006D FC             MOV    R4,A
+006E FD             MOV    R5,A
+006F D007           POP    AR7
+0071 D006           POP    AR6
+0073 120000  R      LCALL  ?CV_LU_IEEE
+0076 8C00    R      MOV    distance_measurement,R4
+0078 8D00    R      MOV    distance_measurement+01H,R5
+007A 8E00    R      MOV    distance_measurement+02H,R6
+007C 8F00    R      MOV    distance_measurement+03H,R7
+                                           ; SOURCE LINE # 118 
+007E C000    R      PUSH   value
+0080 C000    R      PUSH   value+01H
+0082 C000    R      PUSH   value+02H
+0084 C000    R      PUSH   value+03H
+0086 120000  R      LCALL  ?MULTIEEE
+0089 C004           PUSH   AR4
+008B C005           PUSH   AR5
+008D C006           PUSH   AR6
+008F C007           PUSH   AR7
+0091 E4             CLR    A
+0092 FE             MOV    R6,A
+0093 FC             MOV    R4,A
+0094 FD             MOV    R5,A
+0095 743F           MOV    A,#03FH
+0097 FF             MOV    R7,A
+0098 120000  R      LCALL  ?MULTIEEE
+009B 8C00    R      MOV    distance_measurement,R4
+009D 8D00    R      MOV    distance_measurement+01H,R5
+009F 8E00    R      MOV    distance_measurement+02H,R6
+00A1 8F00    R      MOV    distance_measurement+03H,R7
+                                           ; SOURCE LINE # 120 
+00A3 AC00    R      MOV    R4,distance_measurement
+00A5 AD00    R      MOV    R5,distance_measurement+01H
+00A7 AE00    R      MOV    R6,distance_measurement+02H
+00A9 AF00    R      MOV    R7,distance_measurement+03H
+00AB 22             RET    
+
+            ; FUNCTION measureDistance1 (END)
+
+            ; FUNCTION measureDistance2 (BEGIN)
+                                           ; SOURCE LINE # 124 
+0000 22             RET    
+
+            ; FUNCTION measureDistance2 (END)
+
+            ; FUNCTION measureDistance3 (BEGIN)
+                                           ; SOURCE LINE # 128 
+0000 22             RET    
+
+            ; FUNCTION measureDistance3 (END)
+
+            ; FUNCTION SoundControl (BEGIN)
+0000         ?FOR1:
+                                           ; SOURCE LINE # 137 
+0000 120000  R      LCALL  measureDistance1
+0003 8C00    R      MOV    leftDistance,R4
+0005 8D00    R      MOV    leftDistance+01H,R5
+0007 8E00    R      MOV    leftDistance+02H,R6
+0009 8F00    R      MOV    leftDistance+03H,R7
+                                           ; SOURCE LINE # 138 
+000B 120000  R      LCALL  measureDistance2
+000E 850000  R      MOV    centerDistance,leftDistance
+0011 850000  R      MOV    centerDistance+01H,leftDistance+01H
+0014 850000  R      MOV    centerDistance+02H,leftDistance+02H
+0017 850000  R      MOV    centerDistance+03H,leftDistance+03H
+                                           ; SOURCE LINE # 139 
+001A 120000  R      LCALL  measureDistance3
+001D 850000  R      MOV    rightDistance,leftDistance
+0020 850000  R      MOV    rightDistance+01H,leftDistance+01H
+0023 850000  R      MOV    rightDistance+02H,leftDistance+02H
+0026 850000  R      MOV    rightDistance+03H,leftDistance+03H
+                                           ; SOURCE LINE # 141 
+0029 C000    R      PUSH   centerDistance
+002B C000    R      PUSH   centerDistance+01H
+002D C000    R      PUSH   centerDistance+02H
+002F C000    R      PUSH   centerDistance+03H
+0031 E4             CLR    A
+0032 FC             MOV    R4,A
+0033 FD             MOV    R5,A
+0034 7420           MOV    A,#020H
+0036 FE             MOV    R6,A
+0037 7442           MOV    A,#042H
+0039 FF             MOV    R7,A
+003A 120000  R      LCALL  ?COMPIEEE
+003D BF0133         CJNE   R7,#001H,?ELSE3
+0040 C000    R      PUSH   leftDistance
+0042 C000    R      PUSH   leftDistance+01H
+0044 C000    R      PUSH   leftDistance+02H
+0046 C000    R      PUSH   leftDistance+03H
+0048 E4             CLR    A
+0049 FC             MOV    R4,A
+004A FD             MOV    R5,A
+004B 74A0           MOV    A,#0A0H
+004D FE             MOV    R6,A
+004E 7441           MOV    A,#041H
+0050 FF             MOV    R7,A
+0051 120000  R      LCALL  ?COMPIEEE
+0054 BF011C         CJNE   R7,#001H,?ELSE3
+0057 C000    R      PUSH   rightDistance
+0059 C000    R      PUSH   rightDistance+01H
+005B C000    R      PUSH   rightDistance+02H
+005D C000    R      PUSH   rightDistance+03H
+005F E4             CLR    A
+0060 FC             MOV    R4,A
+0061 FD             MOV    R5,A
+0062 74A0           MOV    A,#0A0H
+0064 FE             MOV    R6,A
+0065 7441           MOV    A,#041H
+0067 FF             MOV    R7,A
+0068 120000  R      LCALL  ?COMPIEEE
+006B BF0105         CJNE   R7,#001H,?ELSE3
+                                           ; SOURCE LINE # 142 
+006E 120000  R      LCALL  GoForward
+0071 808D           SJMP   ?FOR1
+0073         ?ELSE3:
+                                           ; SOURCE LINE # 143 
+0073 C000    R      PUSH   leftDistance
+0075 C000    R      PUSH   leftDistance+01H
+0077 C000    R      PUSH   leftDistance+02H
+0079 C000    R      PUSH   leftDistance+03H
+007B AC00    R      MOV    R4,rightDistance
+007D AD00    R      MOV    R5,rightDistance+01H
+007F AE00    R      MOV    R6,rightDistance+02H
+0081 AF00    R      MOV    R7,rightDistance+03H
+0083 120000  R      LCALL  ?COMPIEEE
+0086 BF011D         CJNE   R7,#001H,?ELSE4
+0089 C000    R      PUSH   leftDistance
+008B C000    R      PUSH   leftDistance+01H
+008D C000    R      PUSH   leftDistance+02H
+008F C000    R      PUSH   leftDistance+03H
+0091 E4             CLR    A
+0092 FC             MOV    R4,A
+0093 FD             MOV    R5,A
+0094 74A0           MOV    A,#0A0H
+0096 FE             MOV    R6,A
+0097 7441           MOV    A,#041H
+0099 FF             MOV    R7,A
+009A 120000  R      LCALL  ?COMPIEEE
+009D BF0106         CJNE   R7,#001H,?ELSE4
+                                           ; SOURCE LINE # 145 
+00A0 120000  R      LCALL  GoLeft
+00A3 020000  R      LJMP   ?FOR1
+00A6         ?ELSE4:
+                                           ; SOURCE LINE # 147 
+00A6 C000    R      PUSH   rightDistance
+00A8 C000    R      PUSH   rightDistance+01H
+00AA C000    R      PUSH   rightDistance+02H
+00AC C000    R      PUSH   rightDistance+03H
+00AE AC00    R      MOV    R4,leftDistance
+00B0 AD00    R      MOV    R5,leftDistance+01H
+00B2 AE00    R      MOV    R6,leftDistance+02H
+00B4 AF00    R      MOV    R7,leftDistance+03H
+00B6 120000  R      LCALL  ?COMPIEEE
+00B9 BF0106         CJNE   R7,#001H,?ELSE5
+                                           ; SOURCE LINE # 149 
+00BC 120000  R      LCALL  GoRight
+00BF 020000  R      LJMP   ?FOR1
+00C2         ?ELSE5:
+                                           ; SOURCE LINE # 153 
+00C2 120000  R      LCALL  GoRight
+00C5 120000  R      LCALL  Delay_us
+00C8 120000  R      LCALL  Delay_us
+00CB 120000  R      LCALL  Delay_us
+00CE 020000  R      LJMP   ?FOR1
+
+            ; FUNCTION SoundControl (END)
+
+            ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 160 
+0000 C294           CLR    ledS
+                                           ; SOURCE LINE # 161 
+0002 C296           CLR    ledI
+                                           ; SOURCE LINE # 162 
+0004 D295           SETB   SW
+0006         ?WHILE7:
+                                           ; SOURCE LINE # 166 
+0006 309507         JNB    SW,?ELSE10
+                                           ; SOURCE LINE # 167 
+0009 120000  R      LCALL  SoundControl
+                                           ; SOURCE LINE # 168 
+000C D294           SETB   ledS
+000E 80F6           SJMP   ?WHILE7
+0010         ?ELSE10:
+                                           ; SOURCE LINE # 173 
+0010 D296           SETB   ledI
+                                           ; SOURCE LINE # 174 
+0012 30B308         JNB    rightIR,?ELSE11
+0015 30B405         JNB    leftIR,?ELSE11
+                                           ; SOURCE LINE # 176 
+0018 120000  R      LCALL  GoForward
+001B 80E9           SJMP   ?WHILE7
+001D         ?ELSE11:
+                                           ; SOURCE LINE # 177 
+001D 20B308         JB     rightIR,?ELSE12
+0020 30B405         JNB    leftIR,?ELSE12
+                                           ; SOURCE LINE # 179 
+0023 120000  R      LCALL  GoLeft
+0026 80DE           SJMP   ?WHILE7
+0028         ?ELSE12:
+                                           ; SOURCE LINE # 180 
+0028 30B308         JNB    rightIR,?ELSE13
+002B 20B405         JB     leftIR,?ELSE13
+                                           ; SOURCE LINE # 181 
+002E 120000  R      LCALL  GoRight
+0031 80D3           SJMP   ?WHILE7
+0033         ?ELSE13:
+                                           ; SOURCE LINE # 183 
+0033 120000  R      LCALL  Stop
+0036 80CE           SJMP   ?WHILE7
+
+            ; FUNCTION main (END)
+
+RC51 COMPILER V3.03.1D,  CODE                     07/28/23  16:02:24  PAGE  3
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+Delay_us . . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+init_timer . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+GoForward. . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+GoLeft . . . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+GoRight. . . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+Stop . . . . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+measureDistance1 . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+distance_measurement?150 . . . . . . .  AUTO    DATA    FLOAT   0004H   4    
+value?151. . . . . . . . . . . . . . .  AUTO    DATA    FLOAT   0000H   4    
+measureDistance2 . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+measureDistance3 . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+SoundControl . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+leftDistance?153 . . . . . . . . . . .  AUTO    DATA    FLOAT   0000H   4    
+centerDistance?154 . . . . . . . . . .  AUTO    DATA    FLOAT   0004H   4    
+rightDistance?155. . . . . . . . . . .  AUTO    DATA    FLOAT   0008H   4    
+main . . . . . . . . . . . . . . . . .  PUBLIC  CODE    PROC    -----   -----
+pow. . . . . . . . . . . . . . . . . .  EXTERN  CODE    PROC    -----   -----
+RC51 COMPILER V3.03.1D,  CODE                     07/28/23  16:02:24  PAGE  4
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    531    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      20
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+RC51 COMPILATION COMPLETE.  3 WARNINGS,  0 ERROR

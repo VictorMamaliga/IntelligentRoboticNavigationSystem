@@ -1,0 +1,477 @@
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14        07/28/23  16:02:24  PAGE  1
+WIN32 LX51 CODE BANKING LINKER/LOCATOR V5.01.14,  INVOKED BY:
+LX51 c:\users\44791\desktop\uni\2\intelligent robotic navigation system with &
+obstacle avoidance and line following\code.obj TO(c:\users\44791\desktop\uni\&
+2\intelligent robotic navigation system with obstacle avoidance and line foll&
+owing\noname.AOF) PR(c:\users\44791\desktop\uni\2\intelligent robotic navigat&
+ion system with obstacle avoidance and line following\noname.m51) PW(80) RS(2&
+56) RSI(256) IX MAP 
+
+
+MEMORY MODEL: SMALL WITH IEEE STANDARD FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED
+  C:\USERS\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC NAVIGATION SYSTEM WITH OBSTA&
+CLE AVOIDANCE AND LINE FOLLOWING\CODE.OBJ(CODE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(MULTIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(TOOLIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(CONVIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(COMPIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(POW)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(ADSUIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(DIVIIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(FLOOIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(EXPIEEE)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(LOG)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(FREXP)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51FPS.LIB(TOOLMATH)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(C3S)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(XPGN0)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(XPGN1)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(XPGN0_INC)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(XPGN1_INC)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(PGN0_INC)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(PGN1_INC)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_RG2SK4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_XD2RG4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_I02SK4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_I12SK4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_I02RG4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_I12RG4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_RG2I04)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_RG2I14)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_STK4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_CS2I04)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_CS2I14)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV_CS2SK4)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(MV4_CS2RG)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(ABSL)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(_C_IDATALEN)
+  C:\Users\44791\Desktop\Uni\2\Microprocessors\RIDE\Lib\RC51S.LIB(GESI)
+
+
+LINK MAP OF MODULE: C:\USERS\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC NAVIGATION&
+ SYSTEM WITH OBSTACLE AVOIDANCE AND LINE FOLLOWING\NONAME.AOF (CODE)
+
+    TYPE     BASE       LENGTH    RELOCATION     SEGMENT NAME
+    ----     ----       ------    ----------     ------------
+
+    * * * * * * *   DATA/IDATA    M E M O R Y   * * * * * * *
+    REG      0000H      0008H     ABSOLUTE       "REG BANK 0"
+    DATA     0008H      0014H     UNIT           _DGROUP00_
+    IDATA    001CH      0001H     * * STACK * *  _STACK
+
+    * * * * * * *   CODE          M E M O R Y   * * * * * * *
+    CODE     0000H      0003H     ABSOLUTE       
+    CODE     0003H      009EH     INBLOCK        ?PR?MOVES_NOIL?LIB51
+    CODE     00A1H      00A1H     INBLOCK        ?PR?MOVES?LIB51
+    CODE     0142H      0016H     UNIT           ?PR?LIB51
+    CODE     0158H      000FH     UNIT           ?PR?C51_STARTUP?
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14          07/28/23  16:02:24  PAGE  2
+
+    CODE     0167H      01BEH     UNIT           ?PR??frexp?FREXP
+    CODE     0325H      017DH     UNIT           ?PR?IEEE?LOG
+    CODE     04A2H      00A7H     UNIT           ?PR?IEEE?EXP
+    CODE     0549H      0067H     UNIT           ?PR?IEEE?FLOOR
+    CODE     05B0H      0188H     UNIT           ?PR??pow?POW
+    CODE     0738H      057AH     UNIT           ?PR?IEEE?LIB51
+    CODE     0CB2H      0010H     UNIT           ?PR?Delay_us?CODE
+    CODE     0CC2H      0008H     UNIT           ?PR?init_timer?CODE
+    CODE     0CCAH      0011H     UNIT           ?PR?GoForward?CODE
+    CODE     0CDBH      0011H     UNIT           ?PR?GoLeft?CODE
+    CODE     0CECH      0011H     UNIT           ?PR?GoRight?CODE
+    CODE     0CFDH      0011H     UNIT           ?PR?Stop?CODE
+    CODE     0D0EH      00ACH     UNIT           ?PR?measureDistance1?CODE
+    CODE     0DBAH      0001H     UNIT           ?PR?measureDistance2?CODE
+    CODE     0DBBH      0001H     UNIT           ?PR?measureDistance3?CODE
+    CODE     0DBCH      00D1H     UNIT           ?PR?SoundControl?CODE
+    CODE     0E8DH      0038H     UNIT           ?PR?main?CODE
+
+EXECUTABLE SUMMARY:
+-------------------
+    Total INTERNAL RAM storage requirement:  001CH (28)
+    Total EXTERNAL RAM storage requirement:  0000H (0)
+    Total     CODE     storage requirement:  0EC5H (3781)
+Note:  Summary does not include dynamic stack requirements
+
+
+REFERENCE MAP OF MODULE: C:\USERS\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC NAVIGATION SYSTEM WITH OBSTACLE AVOIDANC&
+E AND LINE FOLLOWING\NONAME.AOF (CODE)
+
+SEGMENT                           BI_GROUP            DT_GROUP             XD_GROUP
+  +--> CALLED SEGMENT          START    LENGTH     START    LENGTH     START    LENGTH
+--------------------------------------------------------------------------------------
+
+?PR?main?CODE                  ---------------     ---------------     ---------------
+  +--> ?PR?SoundControl?CODE
+  +--> ?PR?Stop?CODE
+  +--> ?PR?GoForward?CODE
+  +--> ?PR?GoLeft?CODE
+  +--> ?PR?GoRight?CODE
+
+?PR?SoundControl?CODE          ---------------     0008H    000CH     ---------------
+  +--> ?PR?measureDistance1?CODE
+  +--> ?PR?measureDistance2?CODE
+  +--> ?PR?measureDistance3?CODE
+  +--> ?PR?GoForward?CODE
+  +--> ?PR?GoLeft?CODE
+  +--> ?PR?GoRight?CODE
+  +--> ?PR?Delay_us?CODE
+
+?PR?measureDistance1?CODE      ---------------     0014H    0008H     ---------------
+  +--> ?PR?init_timer?CODE
+  +--> ?PR?Delay_us?CODE
+  +--> ?PR??pow?POW
+
+?PR?init_timer?CODE            ---------------     ---------------     ---------------
+
+?PR?Delay_us?CODE              ---------------     ---------------     ---------------
+
+?PR??pow?POW                   ---------------     ---------------     ---------------
+
+?PR?measureDistance2?CODE      ---------------     ---------------     ---------------
+
+?PR?measureDistance3?CODE      ---------------     ---------------     ---------------
+
+?PR?GoForward?CODE             ---------------     ---------------     ---------------
+
+?PR?GoLeft?CODE                ---------------     ---------------     ---------------
+
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14                                             07/28/23  16:02:24  PAGE  3
+
+?PR?GoRight?CODE               ---------------     ---------------     ---------------
+
+?PR?Stop?CODE                  ---------------     ---------------     ---------------
+
+SYMBOL TABLE FOR C:\USERS\44791\DESKTOP\UNI\2\INTELLIGENT ROBOTIC NAVIGATION SY&
+STEM WITH OBSTACLE AVOIDANCE AND LINE FOLLOWING\NONAME.AOF(CODE)
+-------------------------------------------------------------------------------&
+-----------------------------------------------------------------
+
+    VALUE              TYPE               NAME
+    -----              ----               ----
+
+	-------            MODULE             code
+	C:0000H            SYMBOL             _ICE_DUMMY_
+	C:0E8DH            PUBLIC             main
+	C:0DBCH            PUBLIC             SoundControl
+	C:0DBBH            PUBLIC             measureDistance3
+	C:0DBAH            PUBLIC             measureDistance2
+	C:0D0EH            PUBLIC             measureDistance1
+	C:0CFDH            PUBLIC             Stop
+	C:0CECH            PUBLIC             GoRight
+	C:0CDBH            PUBLIC             GoLeft
+	C:0CCAH            PUBLIC             GoForward
+	C:0CC2H            PUBLIC             init_timer
+	C:0CB2H            PUBLIC             Delay_us
+	B:0087H            SYMBOL             Echo_pin3
+	B:0086H            SYMBOL             Trigger_pin3
+	B:00A7H            SYMBOL             Echo_pin2
+	B:00A6H            SYMBOL             Trigger_pin2
+	B:00A5H            SYMBOL             Echo_pin1
+	B:00A4H            SYMBOL             Trigger_pin1
+	B:0093H            SYMBOL             M4B
+	B:0092H            SYMBOL             M4A
+	B:0091H            SYMBOL             M3B
+	B:0090H            SYMBOL             M3A
+	B:00A3H            SYMBOL             M2B
+	B:00A2H            SYMBOL             M2A
+	B:00A1H            SYMBOL             M1B
+	B:00A0H            SYMBOL             M1A
+	B:0095H            SYMBOL             SW
+	B:0096H            SYMBOL             ledI
+	B:0094H            SYMBOL             ledS
+	B:00B4H            SYMBOL             leftIR
+	B:00B3H            SYMBOL             rightIR
+	B:0098H            SYMBOL             RI
+	B:0099H            SYMBOL             TI
+	B:009AH            SYMBOL             RB8
+	B:009BH            SYMBOL             TB8
+	B:009CH            SYMBOL             REN
+	B:009DH            SYMBOL             SM2
+	B:009EH            SYMBOL             SM1
+	B:009FH            SYMBOL             SM0
+	B:00B0H            SYMBOL             RXD
+	B:00B1H            SYMBOL             TXD
+	B:00B2H            SYMBOL             INT0
+	B:00B3H            SYMBOL             INT1
+	B:00B4H            SYMBOL             T0
+	B:00B5H            SYMBOL             T1
+	B:00B6H            SYMBOL             WR
+	B:00B7H            SYMBOL             RD
+	B:00B8H            SYMBOL             PX0
+	B:00B9H            SYMBOL             PT0
+	B:00BAH            SYMBOL             PX1
+	B:00BBH            SYMBOL             PT1
+	B:00BCH            SYMBOL             PS
+	B:00A8H            SYMBOL             EX0
+	B:00A9H            SYMBOL             ET0
+	B:00AAH            SYMBOL             EX1
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14          07/28/23  16:02:24  PAGE  4
+
+	B:00ABH            SYMBOL             ET1
+	B:00ACH            SYMBOL             ES
+	B:00AFH            SYMBOL             EA
+	B:0088H            SYMBOL             IT0
+	B:0089H            SYMBOL             IE0
+	B:008AH            SYMBOL             IT1
+	B:008BH            SYMBOL             IE1
+	B:008CH            SYMBOL             TR0
+	B:008DH            SYMBOL             TF0
+	B:008EH            SYMBOL             TR1
+	B:008FH            SYMBOL             TF1
+	B:00D0H            SYMBOL             P
+	B:00D2H            SYMBOL             OV
+	B:00D3H            SYMBOL             RS0
+	B:00D4H            SYMBOL             RS1
+	B:00D5H            SYMBOL             F0
+	B:00D6H            SYMBOL             AC
+	B:00D7H            SYMBOL             CY
+	D:0099H            SYMBOL             SBUF
+	D:0098H            SYMBOL             SCON
+	D:00B8H            SYMBOL             IP
+	D:00A8H            SYMBOL             IE
+	D:008DH            SYMBOL             TH1
+	D:008CH            SYMBOL             TH0
+	D:008BH            SYMBOL             TL1
+	D:008AH            SYMBOL             TL0
+	D:0089H            SYMBOL             TMOD
+	D:0088H            SYMBOL             TCON
+	D:0087H            SYMBOL             PCON
+	D:0083H            SYMBOL             DPH
+	D:0082H            SYMBOL             DPL
+	D:0081H            SYMBOL             SP
+	D:00F0H            SYMBOL             B
+	D:00E0H            SYMBOL             ACC
+	D:00D0H            SYMBOL             PSW
+	D:00B0H            SYMBOL             P3
+	D:00A0H            SYMBOL             P2
+	D:0090H            SYMBOL             P1
+	D:0080H            SYMBOL             P0
+	-------            PROC               Delay_us
+	C:0CB2H            LINE#              38
+	C:0CB2H            LINE#              38
+	C:0CB2H            LINE#              40
+	C:0CB5H            LINE#              41
+	C:0CB8H            LINE#              42
+	C:0CBAH            LINE#              43
+	C:0CBDH            LINE#              44
+	C:0CBFH            LINE#              45
+	C:0CC1H            LINE#              46
+	C:0CC1H            LINE#              46
+	-------            ENDPROC            Delay_us
+	-------            PROC               init_timer
+	C:0CC2H            LINE#              48
+	C:0CC2H            LINE#              48
+	C:0CC2H            LINE#              49
+	C:0CC5H            LINE#              50
+	C:0CC7H            LINE#              51
+	C:0CC9H            LINE#              52
+	C:0CC9H            LINE#              52
+	-------            ENDPROC            init_timer
+	-------            PROC               GoForward
+	C:0CCAH            LINE#              54
+	C:0CCAH            LINE#              54
+	C:0CCAH            LINE#              56
+	C:0CCCH            LINE#              57
+	C:0CCEH            LINE#              58
+	C:0CD0H            LINE#              59
+	C:0CD2H            LINE#              60
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14          07/28/23  16:02:24  PAGE  5
+
+	C:0CD4H            LINE#              61
+	C:0CD6H            LINE#              62
+	C:0CD8H            LINE#              63
+	C:0CDAH            LINE#              64
+	C:0CDAH            LINE#              64
+	-------            ENDPROC            GoForward
+	-------            PROC               GoLeft
+	C:0CDBH            LINE#              66
+	C:0CDBH            LINE#              66
+	C:0CDBH            LINE#              68
+	C:0CDDH            LINE#              69
+	C:0CDFH            LINE#              70
+	C:0CE1H            LINE#              71
+	C:0CE3H            LINE#              72
+	C:0CE5H            LINE#              73
+	C:0CE7H            LINE#              74
+	C:0CE9H            LINE#              75
+	C:0CEBH            LINE#              76
+	C:0CEBH            LINE#              76
+	-------            ENDPROC            GoLeft
+	-------            PROC               GoRight
+	C:0CECH            LINE#              78
+	C:0CECH            LINE#              78
+	C:0CECH            LINE#              80
+	C:0CEEH            LINE#              81
+	C:0CF0H            LINE#              82
+	C:0CF2H            LINE#              83
+	C:0CF4H            LINE#              84
+	C:0CF6H            LINE#              85
+	C:0CF8H            LINE#              86
+	C:0CFAH            LINE#              87
+	C:0CFCH            LINE#              88
+	C:0CFCH            LINE#              88
+	-------            ENDPROC            GoRight
+	-------            PROC               Stop
+	C:0CFDH            LINE#              90
+	C:0CFDH            LINE#              90
+	C:0CFDH            LINE#              92
+	C:0CFFH            LINE#              93
+	C:0D01H            LINE#              94
+	C:0D03H            LINE#              95
+	C:0D05H            LINE#              96
+	C:0D07H            LINE#              97
+	C:0D09H            LINE#              98
+	C:0D0BH            LINE#              99
+	C:0D0DH            LINE#              100
+	C:0D0DH            LINE#              100
+	-------            ENDPROC            Stop
+	-------            PROC               measureDistance1
+	D:0018H            SYMBOL             distance_measurement
+	D:0014H            SYMBOL             value
+	C:0D0EH            LINE#              102
+	C:0D0EH            LINE#              102
+	C:0D0EH            LINE#              105
+	C:0D11H            LINE#              106
+	C:0D13H            LINE#              107
+	C:0D16H            LINE#              108
+	C:0D18H            LINE#              110
+	C:0D1BH            LINE#              111
+	C:0D1DH            LINE#              112
+	C:0D23H            LINE#              113
+	C:0D25H            LINE#              116
+	C:0D70H            LINE#              117
+	C:0D8CH            LINE#              118
+	C:0DB1H            LINE#              120
+	C:0DB9H            LINE#              121
+	C:0DB9H            LINE#              121
+	-------            ENDPROC            measureDistance1
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14          07/28/23  16:02:24  PAGE  6
+
+	-------            PROC               measureDistance2
+	C:0DBAH            LINE#              124
+	C:0DBAH            LINE#              124
+	C:0DBAH            LINE#              126
+	C:0DBAH            LINE#              126
+	-------            ENDPROC            measureDistance2
+	-------            PROC               measureDistance3
+	C:0DBBH            LINE#              128
+	C:0DBBH            LINE#              128
+	C:0DBBH            LINE#              130
+	C:0DBBH            LINE#              130
+	-------            ENDPROC            measureDistance3
+	-------            PROC               SoundControl
+	C:0DBCH            LINE#              132
+	C:0DBCH            LINE#              132
+	D:0008H            SYMBOL             leftDistance
+	D:000CH            SYMBOL             centerDistance
+	D:0010H            SYMBOL             rightDistance
+	C:0DBCH            LINE#              137
+	C:0DC7H            LINE#              138
+	C:0DD6H            LINE#              139
+	C:0DE5H            LINE#              141
+	C:0E2AH            LINE#              142
+	C:0E2FH            LINE#              143
+	C:0E5CH            LINE#              145
+	C:0E62H            LINE#              147
+	C:0E78H            LINE#              149
+	C:0E7EH            LINE#              153
+	C:0E8AH            LINE#              134
+	C:0E8AH            LINE#              156
+	-------            ENDPROC            SoundControl
+	-------            PROC               main
+	C:0E8DH            LINE#              158
+	C:0E8DH            LINE#              158
+	C:0E8DH            LINE#              160
+	C:0E8FH            LINE#              161
+	C:0E91H            LINE#              162
+	C:0E93H            LINE#              166
+	C:0E96H            LINE#              167
+	C:0E99H            LINE#              168
+	C:0E9DH            LINE#              173
+	C:0E9FH            LINE#              174
+	C:0EA5H            LINE#              176
+	C:0EAAH            LINE#              177
+	C:0EB0H            LINE#              179
+	C:0EB5H            LINE#              180
+	C:0EBBH            LINE#              181
+	C:0EC0H            LINE#              183
+	C:0EC3H            LINE#              189
+	-------            ENDPROC            main
+	-------            ENDMOD             code
+	C:0738H            PUBLIC             ?MULTIEEEX
+	C:073BH            PUBLIC             ?MULTIEEE
+	C:0895H            PUBLIC             __IEEE_TRAP_NAN__
+	C:08A0H            PUBLIC             __IEEE_END_RESULT__
+	C:0899H            PUBLIC             __IEEE_RESULT_NULL__
+	C:08A6H            PUBLIC             _END_OP_IEEE?C
+	C:088DH            PUBLIC             __IEEE_TRAP_DEB__
+	C:08B7H            PUBLIC             __IEEE_GET_EXP_SET_MANT__
+	C:08D1H            PUBLIC             ?CAST_IEEE
+	C:0973H            PUBLIC             ?CV_CHAR_IEEE
+	C:0917H            PUBLIC             ?CV_IEEE_LS
+	C:08D6H            PUBLIC             ?CV_LS_IEEE
+	C:096DH            PUBLIC             ?CV_IEEE_LU
+	C:0913H            PUBLIC             ?CV_LU_IEEE
+	C:09A4H            PUBLIC             ?COMPIEEE
+	C:05B0H            PUBLIC             ?pow
+	-------            MODULE             pow
+LX51 CODE BANKING LINKER/LOCATOR V5.01.14          07/28/23  16:02:24  PAGE  7
+
+	C:0000H            SYMBOL             _ICE_DUMMY_
+	-------            PROC               ?pow
+	-------            ENDPROC            ?pow
+	-------            ENDMOD             pow
+	C:09F7H            PUBLIC             ?ADDIEEE
+	C:09EEH            PUBLIC             ?SUBBIEEE
+	C:09F4H            PUBLIC             ?ADDIEEEX
+	C:09EBH            PUBLIC             ?SUBBIEEEX
+	C:0B55H            PUBLIC             ?DIVIIEEE
+	C:0B52H            PUBLIC             ?DIVIIEEEX
+	C:0549H            PUBLIC             ?floor
+	C:04DBH            PUBLIC             ?exp
+	C:0325H            PUBLIC             ?log
+	C:0491H            PUBLIC             ?log10
+	C:0167H            PUBLIC             ?frexp
+	-------            MODULE             frexp
+	C:0000H            SYMBOL             _ICE_DUMMY_
+	-------            PROC               ?frexp
+	-------            ENDPROC            ?frexp
+	-------            ENDMOD             frexp
+	C:0C74H            PUBLIC             ?FCTSER_ASM
+	C:0C6AH            PUBLIC             ?FCTSER_ASM_CARRE
+	C:0158H            PUBLIC             ?C_START3
+	C:00A1H            PUBLIC             XPGN0?C
+	C:00BDH            PUBLIC             XPGN1?C
+	C:00D9H            PUBLIC             XPGN0INC?C
+	C:00DDH            PUBLIC             XPGN1INC?C
+	C:00E1H            PUBLIC             __PGN0_INC__
+	C:00E7H            PUBLIC             __PGN1_INC__
+	C:0003H            PUBLIC             MV4_RG2SK?C
+	C:00EDH            PUBLIC             MV4_XD2RG?C
+	C:001CH            PUBLIC             MV4_I02SK?C
+	C:001EH            PUBLIC             _MV_I02SK_0
+	C:0033H            PUBLIC             MV4_I12SK?C
+	C:0035H            PUBLIC             _MV_I12SK_0
+	C:00F9H            PUBLIC             MV4_I02RG?C
+	C:0105H            PUBLIC             MV4_I12RG?C
+	C:0111H            PUBLIC             MV4_RG2I0?C
+	C:011DH            PUBLIC             MV4_RG2I1?C
+	C:0046H            PUBLIC             STACKPREP4?C
+	C:0048H            PUBLIC             STACKPREP?C
+	C:005CH            PUBLIC             _MV_CS2I0_0
+	C:0059H            PUBLIC             MV4_CS2I0?C
+	C:0071H            PUBLIC             _MV_CS2I1_0
+	C:006EH            PUBLIC             MV4_CS2I1?C
+	C:0085H            PUBLIC             _MV_CS2SK_0
+	C:0083H            PUBLIC             MV4_CS2SK?C
+	C:0129H            PUBLIC             MV4_CS2RG?C
+	C:0142H            PUBLIC             ?labs
+	N:00FFH            PUBLIC             IDATALEN
+	N:00FFH            PUBLIC             _INITP2?
+	C:014AH            PUBLIC             GESI?C
+
+LINK/LOCATE RUN COMPLETE,  NO ERROR FOUND.
+

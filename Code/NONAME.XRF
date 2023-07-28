@@ -1,0 +1,79 @@
+WIN32 LX51 CODE BANKING LINKER/LOCATOR V5.01.14
+
+
+INTER-MODULE CROSS-REFERENCE LISTING
+------------------------------------
+
+          NAME. . . . . . . . USAGE   MODULE NAMES
+          ----------------------------------------
+          ?ADDIEEE  . . . . . CODE    [ADSUIEEE]:  TOOLMATH, LOG, EXPIEEE, FLOOIEEE
+          ?ADDIEEEX . . . . . CODE    [ADSUIEEE]: 
+          ?CAST_IEEE  . . . . CODE    [CONVIEEE]:  FLOOIEEE
+          ?COMPIEEE . . . . . CODE    [COMPIEEE]:  FREXP, LOG, FLOOIEEE, POW, CODE
+          ?CV_CHAR_IEEE . . . CODE    [CONVIEEE]:  EXPIEEE
+          ?CV_IEEE_LS . . . . CODE    [CONVIEEE]:  EXPIEEE, POW
+          ?CV_IEEE_LU . . . . CODE    [CONVIEEE]: 
+          ?CV_LS_IEEE . . . . CODE    [CONVIEEE]:  LOG
+          ?CV_LU_IEEE . . . . CODE    [CONVIEEE]:  CODE
+          ?C_START3 . . . . . CODE    [C3S]:  CODE
+          ?DIVIIEEE . . . . . CODE    [DIVIIEEE]:  FREXP, LOG, POW
+          ?DIVIIEEEX  . . . . CODE    [DIVIIEEE]: 
+          ?exp  . . . . . . . CODE    [EXPIEEE]:  POW
+          ?FCTSER_ASM . . . . CODE    [TOOLMATH]:  EXPIEEE
+          ?FCTSER_ASM_CARRE . CODE    [TOOLMATH]: 
+          ?floor  . . . . . . CODE    [FLOOIEEE]:  POW
+          ?frexp  . . . . . . CODE    [FREXP]:  LOG
+          ?labs . . . . . . . CODE    [ABSL]:  POW
+          ?log  . . . . . . . CODE    [LOG]:  POW
+          ?log10  . . . . . . CODE    [LOG]: 
+          ?MULTIEEE . . . . . CODE    [MULTIEEE]:  TOOLMATH, FREXP, LOG, EXPIEEE, POW, CODE
+          ?MULTIEEEX  . . . . CODE    [MULTIEEE]: 
+          ?pow  . . . . . . . CODE    [POW]:  CODE
+          ?SUBBIEEE . . . . . CODE    [ADSUIEEE]:  LOG, POW
+          ?SUBBIEEEX  . . . . CODE    [ADSUIEEE]: 
+          Delay_us  . . . . . CODE    [CODE]: 
+          GESI?C  . . . . . . CODE    [GESI]:  ABSL
+          GoForward . . . . . CODE    [CODE]: 
+          GoLeft  . . . . . . CODE    [CODE]: 
+          GoRight . . . . . . CODE    [CODE]: 
+          IDATALEN  . . . . . NUMBER  [_C_IDATALEN]:  C3S
+          init_timer  . . . . CODE    [CODE]: 
+          main  . . . . . . . CODE    [CODE]:  C3S
+          measureDistance1  . CODE    [CODE]: 
+          measureDistance2  . CODE    [CODE]: 
+          measureDistance3  . CODE    [CODE]: 
+          MV4_CS2I0?C . . . . CODE    [MV_CS2I04]:  FREXP
+          MV4_CS2I1?C . . . . CODE    [MV_CS2I14]:  POW
+          MV4_CS2RG?C . . . . CODE    [MV4_CS2RG]:  FLOOIEEE
+          MV4_CS2SK?C . . . . CODE    [MV_CS2SK4]:  LOG, EXPIEEE, FLOOIEEE
+          MV4_I02RG?C . . . . CODE    [MV_I02RG4]:  FREXP, POW
+          MV4_I02SK?C . . . . CODE    [MV_I02SK4]:  LOG
+          MV4_I12RG?C . . . . CODE    [MV_I12RG4]:  FREXP, LOG, POW
+          MV4_I12SK?C . . . . CODE    [MV_I12SK4]:  LOG
+          MV4_RG2I0?C . . . . CODE    [MV_RG2I04]:  FREXP, LOG, POW
+          MV4_RG2I1?C . . . . CODE    [MV_RG2I14]:  LOG
+          MV4_RG2SK?C . . . . CODE    [MV_RG2SK4]:  TOOLMATH, FREXP, LOG, EXPIEEE, FLOOIEEE, POW
+          MV4_XD2RG?C . . . . CODE    [MV_XD2RG4]:  DIVIIEEE, ADSUIEEE, MULTIEEE
+          SoundControl  . . . CODE    [CODE]: 
+          STACKPREP4?C  . . . CODE    [MV_STK4]:  LOG, EXPIEEE, FLOOIEEE
+          STACKPREP?C . . . . CODE    [MV_STK4]: 
+          Stop  . . . . . . . CODE    [CODE]: 
+          XPGN0?C . . . . . . CODE    [XPGN0]:  XPGN0_INC, FREXP
+          XPGN0INC?C  . . . . CODE    [XPGN0_INC]:  FREXP
+          XPGN1?C . . . . . . CODE    [XPGN1]:  XPGN1_INC, FREXP
+          XPGN1INC?C  . . . . CODE    [XPGN1_INC]:  FREXP
+          _END_OP_IEEE?C  . . CODE    [TOOLIEEE]:  DIVIIEEE, ADSUIEEE, COMPIEEE, MULTIEEE
+          _INITP2?  . . . . . NUMBER  [_C_IDATALEN]:  C3S
+          _MV_CS2I0_0 . . . . CODE    [MV_CS2I04]: 
+          _MV_CS2I1_0 . . . . CODE    [MV_CS2I14]: 
+          _MV_CS2SK_0 . . . . CODE    [MV_CS2SK4]: 
+          _MV_I02SK_0 . . . . CODE    [MV_I02SK4]: 
+          _MV_I12SK_0 . . . . CODE    [MV_I12SK4]: 
+          _STACK  . . . . . . IDATA   [CODE]:  C3S
+          __IEEE_END_RESULT__ CODE    [TOOLIEEE]:  DIVIIEEE, ADSUIEEE, MULTIEEE
+          __IEEE_GET_EXP_SET_MCODE    [TOOLIEEE]:  DIVIIEEE, ADSUIEEE, MULTIEEE
+          __IEEE_RESULT_NULL__CODE    [TOOLIEEE]:  DIVIIEEE, ADSUIEEE, MULTIEEE
+          __IEEE_TRAP_DEB__ . CODE    [TOOLIEEE]:  DIVIIEEE, ADSUIEEE, MULTIEEE
+          __IEEE_TRAP_NAN__ . CODE    [TOOLIEEE]:  DIVIIEEE, ADSUIEEE, MULTIEEE
+          __PGN0_INC__  . . . CODE    [PGN0_INC]:  XPGN0_INC
+          __PGN1_INC__  . . . CODE    [PGN1_INC]:  XPGN1_INC
