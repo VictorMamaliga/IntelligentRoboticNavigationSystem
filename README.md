@@ -1,4 +1,5 @@
 # Intelligent Robotic Navigation System with Obstacle Avoidance and Line Following
+![front](https://github.com/VictorMamaliga/IntelligentRoboticNavigationSystem/assets/92131932/c171d263-9557-402a-b8b9-70f99b9aa4e8)
 
 ## Overview
 
